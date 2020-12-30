@@ -1,0 +1,11 @@
+[Unit]
+Description=Trace security capabilitiy checks
+Requires=dca-caplint-execsnoop.service
+
+[Service]
+Type=simple
+ExecStart=/usr/share/bcc/tools/capable --extra
+StandardOutput=file:/run/dca-caplint-capable.log
+
+[Install]
+RequiredBy=basic.target

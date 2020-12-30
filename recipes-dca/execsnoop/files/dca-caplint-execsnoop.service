@@ -1,0 +1,10 @@
+[Unit]
+Description=Trace new processes via exec() syscalls
+
+[Service]
+Type=simple
+ExecStart=/usr/share/bcc/tools/execsnoop
+StandardOutput=file:/run/dca-caplint-execsnoop.log
+
+[Install]
+RequiredBy=basic.target

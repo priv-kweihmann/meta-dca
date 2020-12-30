@@ -1,0 +1,5 @@
+TODO
+.vscode
+.textlintrc
+__pycache__
+*.pyc

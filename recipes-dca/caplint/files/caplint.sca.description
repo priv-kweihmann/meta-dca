@@ -1,0 +1,21 @@
+{
+    "buildspeed": 5,
+    "execspeed": 4,
+    "languages": [
+        "system"
+    ],
+    "quality": 10,
+    "scope": [
+        "security"
+    ],
+    "score": {
+        "security": [
+            "caplint.caplint.*"
+        ]
+    },
+    "test": {
+        "findings": [
+            "core-image-minimal-scatest"
+        ]
+    }
+}

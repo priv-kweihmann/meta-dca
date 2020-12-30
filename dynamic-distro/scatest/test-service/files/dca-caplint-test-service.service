@@ -1,0 +1,10 @@
+[Unit]
+Description=DCA test service
+
+[Service]
+Type=simple
+ExecStart=/bin/sh -c 'while true; do ls -lisa /tmp; sleep 1; done'
+CapabilityBoundingSet=CAP_SYS_ADMIN CAP_DAC_OVERRIDE CAP_SYS_PTRACE
+
+[Install]
+WantedBy=multi-user.target
