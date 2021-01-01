@@ -14,5 +14,5 @@ python dca_check_sanity_eventhandler() {
         bb.warn("Usage of 'QEMU_USE_KVM' is highly recommended")
     
     if "systemd" not in distro_features:
-        bb.fatal("dca-caplint integration does require 'systemd' in DISTRO_FEATURES")
+        bb.fatal("dca integration does require 'systemd' in DISTRO_FEATURES")
 }
