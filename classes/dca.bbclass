@@ -31,7 +31,5 @@ python dca_invoke_handler() {
     if any(enabledModules):
         if d.getVar("DCA_VERBOSE_OUTPUT") == "1":
             bb.note("Using DCA Module(s) {}".format(",".join(sorted(enabledModules))))
-        # Any module needs the systemd service dump collector
-        d.appendVar("TEST_SUITES", " dca_systemddump")
     d.setVar("DCA_ACTIVE_MODULES", " ".join(sorted(enabledModules)))
 }

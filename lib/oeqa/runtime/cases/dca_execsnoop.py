@@ -7,8 +7,8 @@ from oeqa.runtime.case import OERuntimeTestCase
 from oeqa.core.decorator.depends import OETestDepends
 from oeqa.runtime.decorator.package import OERequirePackage
 
-class DCACaplint(OERuntimeTestCase):
+class DCAExecSnoop(OERuntimeTestCase):
 
-    @OERequirePackage(['dca-caplint'])
-    def test_dca_caplint_getlogs(self):
-        self.target.copyFrom("/run/dca-caplint-capable.log", os.path.join(self.tc.td.get('T'), "dca-caplint-capable.log"))
+    @OERequirePackage(['dca-execsnoop'])
+    def test_dca_execsnoop_getlogs(self):
+        self.target.copyFrom("/run/dca-execsnoop.log", os.path.join(self.tc.td.get('T'), "dca-execsnoop.log"))

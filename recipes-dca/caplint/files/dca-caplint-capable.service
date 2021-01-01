@@ -1,6 +1,6 @@
 [Unit]
 Description=Trace security capabilitiy checks
-Requires=dca-caplint-execsnoop.service
+Requires=dca-execsnoop.service
 
 [Service]
 Type=simple

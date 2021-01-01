@@ -11,6 +11,9 @@ inherit sca-suppress
 inherit dca-image-backtrack
 inherit dca-deploy
 
+inherit dca-module-execsnoop
+inherit dca-module-systemddump
+
 SCA_RAW_RESULT_FILE[caplint] = "json"
 
 TEST_SUITES_append = " dca_caplint"
@@ -20,55 +23,6 @@ IMAGE_INSTALL_append = " \
                         kernel-module-kheaders \
                        "
 
-def dsa_caplint_services_map(d):
-    import json
-
-    _map = {}
-    ## Rework to use the JSON input
-    with open(os.path.join(d.getVar('T'), "dca-systemddump.json")) as i:
-        for k,v in json.load(i).items():
-            _map[k] = { "Caps": [], 
-                        "Children": []
-                      }
-            if "CapabilityBoundingSet" in v:
-                _map[k]["CapabilityBoundingSet"] = list(set([x.upper() for x in v["CapabilityBoundingSet"].split(" ")]))
-            else:
-                _map[k]["CapabilityBoundingSet"] = []
-            if "MainPID" in v:
-                _map[k]["MainPID"] = v["MainPID"]
-            else:
-                _map[k]["MainPID"] = "-1"
-            if "FragmentPath" in v:
-                _map[k]["FragmentPath"] = v["FragmentPath"]
-            else:
-                _map[k]["FragmentPath"] = "/does/not/exist"
-    return _map
-
-def dsa_caplint_pid_map(d, _map):
-    import re
-    pattern = r"^(\w+)\s+(?P<pid>\d+)\s+(?P<ppid>\d+)\s+\d+\s+.*"
-
-    _initial_map = {}
-    # Initial loop
-    with open(os.path.join(d.getVar('T'), "dca-caplint-execsnoop.log")) as i:
-        for m in re.finditer(pattern, i.read(), re.MULTILINE):
-            if not m.group("ppid") in _map:
-                _initial_map[m.group("ppid")] = []
-            _initial_map[m.group("ppid")].append(m.group("pid"))
-
-    def _maploop(_id, _m):
-        res = []
-        if _id in _m:
-            res += _m[_id]
-            for v in _m[_id]:
-                res += _maploop(v, _m)
-        return res
-
-    _resmap = {k:_maploop(k, _initial_map) for k,_ in _initial_map.items()}
-    for k, v in _map.items():
-        if v["MainPID"] in _resmap.keys():
-            v["Children"] = _resmap[v["MainPID"]]
-
 def dsa_caplint_cap_map(d, _map):
     import re
     pattern = r"^\d+:\d+:\d+\s+(?P<uid>\d+)\s+(?P<pid>\d+)\s+\d+\s+(?P<app>.*?)\s+\d+\s+(?P<cap>[A-Z_]*)\s+\d+\s+\d+"
@@ -77,8 +31,6 @@ def dsa_caplint_cap_map(d, _map):
             for k,v in _map.items():
                 if m.group("pid") == v["MainPID"] or \
                     m.group("pid") in v["Children"]:
-                    if "Caps" not in v:
-                        v["Caps"] = []
                     v["Caps"].append(m.group("cap"))
 
 def do_dca_conv_caplint(d, _map):
@@ -120,8 +72,14 @@ def do_dca_conv_caplint(d, _map):
 python do_dca_caplint() {
     import json
 
-    _map = dsa_caplint_services_map(d)
-    dsa_caplint_pid_map(d, _map)
+    # Get systemd dump map
+    _map = dca_module_systemddump(d, 
+                                  { "Caps": [], "Children": [], "MainPID": "-1", "FragmentPath": "/does/not/exist", "CapabilityBoundingSet": []},
+                                  ["MainPID", "FragmentPath", "CapabilityBoundingSet"])
+    # Get children process PIDs from execsnoop
+    for k, v in _map.items():
+        v["Children"] = dca_module_execsnoop(d, v["MainPID"])
+    # Map against seen capabilities
     dsa_caplint_cap_map(d, _map)
 
     with open(sca_raw_result_file(d, "caplint"), "w") as o:
