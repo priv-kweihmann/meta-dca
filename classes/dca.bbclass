@@ -2,6 +2,7 @@
 ## Copyright (c) 2020, Konrad Weihmann
 
 inherit sca-helper
+inherit dca-default-suppression
 
 DCA_AVAILABLE_MODULES ??= "\
                            caplint \
