@@ -1,0 +1,11 @@
+[Unit]
+Description=DCA opensnoop test service
+
+[Service]
+Type=simple
+ExecStart=/bin/sh -c 'while true; do echo "abc" >> /tmp/test; cat /usr/share/foo; cat /etc/os-release; cat /etc/doesexist || true; sleep 1; done'
+ReadWritePaths=/etc
+ReadOnlyPaths=/usr/bin /usr/share
+
+[Install]
+WantedBy=multi-user.target

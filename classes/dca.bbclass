@@ -6,6 +6,7 @@ inherit dca-default-suppression
 
 DCA_AVAILABLE_MODULES ??= "\
                            caplint \
+                           opensnoop \
                           "
 DCA_ENABLED_MODULES ??= "${DCA_AVAILABLE_MODULES}"
 DCA_VERBOSE_OUTPUT ??= "0"

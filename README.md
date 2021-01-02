@@ -51,9 +51,10 @@ For a quick start how to use this layer see [getting started guide](docs/getting
 
 ## Available modules
 
-| module  | purpose                                        | more info                      |
-| ------- | ---------------------------------------------- | ------------------------------ |
-| caplint | Identify needed capabilities of a systemd unit | https://github.com/iovisor/bcc |
+| module    | purpose                                                      | more info                           |
+| --------- | ------------------------------------------------------------ | ----------------------------------- |
+| caplint   | Identify needed capabilities of a systemd unit               | https://github.com/iovisor/bcc      |
+| opensnoop | Lint ReadOnlyPaths/ReadWritePaths settings of a systemd unit | https://github.com/iovisor/bpftrace |
 
 ## Further documentation
 

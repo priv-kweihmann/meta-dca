@@ -1,0 +1,11 @@
+[Unit]
+Description=Trace file and directory access
+Requires=dca-execsnoop.service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/bpftrace /usr/share/dca/tools/opensnoop-enh.bt
+StandardOutput=file:/run/dca-opensnoop.log
+
+[Install]
+RequiredBy=basic.target

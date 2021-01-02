@@ -4,4 +4,5 @@ inherit packagegroup
 
 RDEPENDS_${PN} += "\
                     dca-caplint-test-service \
+                    dca-opensnoop-test-service \
                   "
