@@ -6,3 +6,5 @@ TEST_SUITES = "aaa_dummy"
 inherit dca
 
 IMAGE_INSTALL += "packagegroup-dca-test"
+
+do_testimage[depends] += "${PN}:do_image_complete"
