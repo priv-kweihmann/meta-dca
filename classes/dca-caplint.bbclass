@@ -2,7 +2,6 @@
 ## Copyright (c) 2020, Konrad Weihmann
 
 inherit testimage
-inherit sca-conv-to-export
 inherit sca-datamodel
 inherit sca-helper
 inherit sca-license-filter
@@ -95,9 +94,7 @@ python do_dca_caplint() {
     with open(d.getVar("SCA_DATAMODEL_STORAGE"), "w") as o:
         o.write(dm_output)
 
-    sca_task_aftermath(d, "CAPLINT")
-    sca_conv_deploy(d, "caplint")
-    dca_deploy(d)
+    dca_deploy(d, "CAPLINT", "caplint")
 }
 
 do_testimage[postfuncs] += "do_dca_caplint"
