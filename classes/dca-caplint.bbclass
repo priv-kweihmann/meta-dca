@@ -31,7 +31,7 @@ def dsa_caplint_cap_map(d, _map):
             for k,v in _map.items():
                 if m.group("pid") == v["MainPID"] or \
                     m.group("pid") in v["Children"]:
-                    v["Caps"].append(m.group("cap"))
+                    v["Caps"] = list(set(v["Caps"] + [m.group("cap")]))
 
 def do_dca_conv_caplint(d, _map):
     import os
@@ -46,25 +46,24 @@ def do_dca_conv_caplint(d, _map):
     _findings = []
 
     for k, v in _map.items():
-        if sorted(set(v["CapabilityBoundingSet"])) != sorted(set(v["Caps"])):
-            try:
-                _caps = sorted(set([x for x in v["CapabilityBoundingSet"] if x not in v["Caps"]]))
-                if not _caps:
-                    continue
-                _msg = "{add} set as capabilities are not used".format(add=_caps)
+        try:
+            _caps = sorted(set([x for x in v["CapabilityBoundingSet"] if x not in v["Caps"]]))
+            if not _caps:
+                continue
+            for c in _caps:
                 g = sca_get_model_class(d,
                                         PackageName=package_name,
                                         Tool="caplint",
                                         BuildPath=buildpath,
                                         File=v["FragmentPath"],
-                                        Message=_msg,
-                                        ID="caplint.caplint.capabilities",
+                                        Message="'{}' set as capability but it is not used".format(c),
+                                        ID="caplint.caplint.capabilities.{}".format(c),
                                         Severity="warning")
                 if _suppress.Suppressed(g):
                     continue
                 _findings += dca_backtrack_findings(d, g)
-            except Exception as e:
-                sca_log_note(d, str(e))
+        except Exception as e:
+            sca_log_note(d, str(e))
 
     sca_add_model_class_list(d, _findings)
     return sca_save_model_to_string(d)
@@ -74,7 +73,13 @@ python do_dca_caplint() {
 
     # Get systemd dump map
     _map = dca_module_systemddump(d, 
-                                  { "Caps": [], "Children": [], "MainPID": "-1", "FragmentPath": "/does/not/exist", "CapabilityBoundingSet": []},
+                                  { 
+                                    "CapabilityBoundingSet": [],
+                                    "Caps": [], 
+                                    "Children": [], 
+                                    "FragmentPath": "/does/not/exist", 
+                                    "MainPID": "-1", 
+                                  },
                                   ["MainPID", "FragmentPath", "CapabilityBoundingSet"])
     # Get children process PIDs from execsnoop
     for k, v in _map.items():
