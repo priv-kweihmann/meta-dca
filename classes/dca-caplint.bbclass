@@ -16,7 +16,7 @@ inherit dca-module-systemddump
 
 SCA_RAW_RESULT_FILE[caplint] = "json"
 
-TEST_SUITES_append = " dca_caplint"
+TEST_SUITES_append = " zzz_dca_caplint"
 IMAGE_INSTALL_append = " \
                         dca-caplint \
                         kernel-dev \

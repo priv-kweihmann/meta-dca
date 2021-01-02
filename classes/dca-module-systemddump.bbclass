@@ -1,7 +1,7 @@
 ## SPDX-License-Identifier: BSD-2-Clause
 ## Copyright (c) 2021, Konrad Weihmann
 
-TEST_SUITES_append = " dca_systemddump"
+TEST_SUITES_append = " zzz_dca_systemddump"
 
 def dca_module_systemddump(d, autofields, export):
     import json

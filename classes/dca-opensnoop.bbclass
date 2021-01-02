@@ -16,7 +16,7 @@ inherit dca-module-systemddump
 
 SCA_RAW_RESULT_FILE[opensnoop] = "json"
 
-TEST_SUITES_append = " dca_opensnoop"
+TEST_SUITES_append = " zzz_dca_opensnoop"
 IMAGE_INSTALL_append = " \
                         dca-opensnoop \
                         kernel-dev \

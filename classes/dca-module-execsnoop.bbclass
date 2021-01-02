@@ -1,7 +1,7 @@
 ## SPDX-License-Identifier: BSD-2-Clause
 ## Copyright (c) 2021, Konrad Weihmann
 
-TEST_SUITES_append = " dca_execsnoop"
+TEST_SUITES_append = " zzz_dca_execsnoop"
 
 def dca_module_execsnoop_init(d):
     import re
