@@ -15,6 +15,8 @@ inherit dca-module-systemddump
 
 SCA_RAW_RESULT_FILE[opensnoop] = "json"
 
+DCA_SUPPRESSION_INTERNAL += "dca-opensnoop.service"
+
 TEST_SUITES_append = " zzz_dca_opensnoop"
 IMAGE_INSTALL_append = " \
                         dca-opensnoop \
@@ -85,6 +87,7 @@ def do_dca_conv_opensnoop(d, _map):
     _findings = []
 
     for k, v in _res.items():
+        bb.debug(1, "opensnoop -> {}:{}".format(k, len(v["items"])))
         for item in v["items"]:
             try:
                 g = sca_get_model_class(d,

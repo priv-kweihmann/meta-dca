@@ -15,6 +15,8 @@ inherit dca-module-systemddump
 
 SCA_RAW_RESULT_FILE[caplint] = "json"
 
+DCA_SUPPRESSION_INTERNAL += "dca-caplint-capable.service"
+
 TEST_SUITES_append = " zzz_dca_caplint"
 IMAGE_INSTALL_append = " \
                         dca-caplint \
@@ -49,6 +51,7 @@ def do_dca_conv_caplint(d, _map):
             _caps = sorted(set([x for x in v["CapabilityBoundingSet"] if x not in v["Caps"]]))
             if not _caps:
                 continue
+            bb.debug(1, "caplint -> {}:{}".format(k, len(_caps)))
             for c in _caps:
                 g = sca_get_model_class(d,
                                         PackageName=package_name,
