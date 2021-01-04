@@ -11,6 +11,10 @@ DCA_AVAILABLE_MODULES ??= "\
 DCA_ENABLED_MODULES ??= "${DCA_AVAILABLE_MODULES}"
 DCA_VERBOSE_OUTPUT ??= "0"
 
+DCA_SUPPRESSED_SERVICES ?= ""
+DCA_SUPPRESSION_INTERNAL ?= ""
+DCA_AUTO_SPARE ?= "core yocto yoctobsp openembedded-layer clang-layer"
+
 addhandler dca_invoke_handler
 dca_invoke_handler[eventmask] = "bb.event.RecipePreFinalise"
 python dca_invoke_handler() {
@@ -28,8 +32,8 @@ python dca_invoke_handler() {
             okay = True
             enabledModules.append(item)
         except bb.parse.ParseError as exp:
-            if d.getVar("DCA_VERBOSE_OUTPUT") != "0":
-                bb.note(d, str(exp))
+            #if d.getVar("DCA_VERBOSE_OUTPUT") != "0":
+            bb.warn(str(exp))
     if any(enabledModules):
         if d.getVar("DCA_VERBOSE_OUTPUT") == "1":
             bb.note("Using DCA Module(s) {}".format(",".join(sorted(enabledModules))))
