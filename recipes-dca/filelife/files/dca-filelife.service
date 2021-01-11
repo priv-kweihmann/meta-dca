@@ -1,0 +1,12 @@
+[Unit]
+Description=Trace file lifetime
+Requires=dca-execsnoop.service
+
+[Service]
+Type=simple
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/usr/share/bcc/tools/filelife
+StandardOutput=file:/run/dca-filelife.log
+
+[Install]
+RequiredBy=basic.target

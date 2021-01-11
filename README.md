@@ -54,11 +54,13 @@ For a quick start how to use this layer see [getting started guide](docs/getting
 | module    | purpose                                                      | more info                           |
 | --------- | ------------------------------------------------------------ | ----------------------------------- |
 | caplint   | Identify needed capabilities of a systemd unit               | https://github.com/iovisor/bcc      |
+| filelife  | Find shortlived files written to non-volatile storage        | https://github.com/iovisor/bcc      |
 | opensnoop | Lint ReadOnlyPaths/ReadWritePaths settings of a systemd unit | https://github.com/iovisor/bpftrace |
 
 ## Further documentation
 
 - [Global Configuration](docs/global.md)
+  - [filelife](docs/filelife.md)
 
 ## Get involved
 

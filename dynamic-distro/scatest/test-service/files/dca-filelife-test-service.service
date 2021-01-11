@@ -1,0 +1,9 @@
+[Unit]
+Description=DCA filelife test service
+
+[Service]
+Type=simple
+ExecStart=/bin/sh -c 'while true; do echo "1" > /usr/1; sleep 5; rm /usr/1; done'
+
+[Install]
+WantedBy=multi-user.target
