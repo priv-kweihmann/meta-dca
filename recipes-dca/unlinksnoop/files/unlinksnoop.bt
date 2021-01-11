@@ -1,0 +1,38 @@
+#!/usr/bin/env bpftrace
+/*
+ * unlinksnoop	Trace unlink() syscalls.
+ *
+ * Licensed under the BSD-2-Clause (the "License")
+ * Derived from code
+ * Copyright 2018 Netflix, Inc.
+ * Licensed under the Apache License, Version 2.0 (the "License")
+ *
+ * 01-Jan-2021	Konrad Weihmann	Initial snippet
+ */
+
+BEGIN
+{
+	printf("%-6s %-4s %s\n", "PID", "ERRNO", "PATH");
+}
+
+tracepoint:syscalls:sys_enter_unlink,
+tracepoint:syscalls:sys_enter_unlinkat
+{
+	@pathname[tid] = args->pathname;
+}
+
+tracepoint:syscalls:sys_exit_unlink,
+tracepoint:syscalls:sys_exit_unlinkat
+/@pathname[tid]/
+{
+	$ret = args->ret;
+	$errno = $ret > 0 ? 0 : - $ret;
+
+	printf("%-6d %-4d %s\n", pid, $errno, str(@pathname[tid]));
+	delete(@pathname[tid]);
+}
+
+END
+{
+	clear(@pathname);
+}

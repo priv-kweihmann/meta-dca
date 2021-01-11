@@ -1,0 +1,10 @@
+[Unit]
+Description=Trace unlink syscalls
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/bpftrace /usr/share/dca/tools/unlinksnoop.bt
+StandardOutput=file:/run/dca-unlinksnoop.log
+
+[Install]
+RequiredBy=basic.target
