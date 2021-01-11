@@ -8,4 +8,4 @@ class DCADummyTest(OERuntimeTestCase):
     def test_dummy(self):
         """This test does literally nothing but sleep
         """
-        self.target.run("sleep 15")
+        self.target.run("sleep 30")
