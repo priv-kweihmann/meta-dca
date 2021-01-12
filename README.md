@@ -55,6 +55,7 @@ For a quick start how to use this layer see [getting started guide](docs/getting
 | --------- | ------------------------------------------------------------ | ----------------------------------- |
 | caplint   | Identify needed capabilities of a systemd unit               | https://github.com/iovisor/bcc      |
 | filelife  | Find shortlived files written to non-volatile storage        | https://github.com/iovisor/bcc      |
+| filemiss  | Find inaccessible files                                      | https://github.com/iovisor/bpftrace |
 | opensnoop | Lint ReadOnlyPaths/ReadWritePaths settings of a systemd unit | https://github.com/iovisor/bpftrace |
 
 ## Further documentation

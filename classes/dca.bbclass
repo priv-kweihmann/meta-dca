@@ -7,6 +7,7 @@ inherit dca-default-suppression
 DCA_AVAILABLE_MODULES ??= "\
                            caplint \
                            filelife \
+                           filemiss \
                            opensnoop \
                           "
 DCA_ENABLED_MODULES ??= "${DCA_AVAILABLE_MODULES}"
