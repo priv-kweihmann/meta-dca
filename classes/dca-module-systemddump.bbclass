@@ -3,7 +3,7 @@
 
 inherit dca-suppression
 
-TEST_SUITES_append = " zzz_dca_systemddump"
+TEST_SUITES:append = " zzz_dca_systemddump"
 
 def dca_module_systemddump(d, autofields, export):
     import json

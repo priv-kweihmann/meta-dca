@@ -17,8 +17,8 @@ SCA_RAW_RESULT_FILE[caplint] = "json"
 
 DCA_SUPPRESSION_INTERNAL += "dca-caplint-capable.service"
 
-TEST_SUITES_append = " zzz_dca_caplint"
-IMAGE_INSTALL_append = " \
+TEST_SUITES:append = " zzz_dca_caplint"
+IMAGE_INSTALL:append = " \
                         dca-caplint \
                         kernel-dev \
                         kernel-module-kheaders \

@@ -12,11 +12,11 @@ SRC_URI = "\
 
 inherit systemd
 
-do_install_append() {
+do_install:append() {
     install -d ${D}${systemd_system_unitdir}
     install -m 0644 ${WORKDIR}/dca-filelife-test-service.service ${D}${systemd_system_unitdir}
 }
 
-SYSTEMD_SERVICE_${PN} += "dca-filelife-test-service.service"
+SYSTEMD_SERVICE:${PN} += "dca-filelife-test-service.service"
 
-FILES_${PN} += "${systemd_system_unitdir}"
+FILES:${PN} += "${systemd_system_unitdir}"

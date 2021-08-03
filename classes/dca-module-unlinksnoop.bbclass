@@ -3,7 +3,7 @@
 
 DCA_SUPPRESSION_INTERNAL += "dca-unlinksnoop.service"
 
-TEST_SUITES_append = " zzz_dca_unlinksnoop"
+TEST_SUITES:append = " zzz_dca_unlinksnoop"
 
 def dca_module_unlinksnoop_init(d):
     import re

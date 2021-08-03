@@ -13,9 +13,9 @@ SRC_URI = "\
 inherit native
 inherit systemd
 
-do_install_append() {
+do_install:append() {
     install -d ${D}${datadir}
     install -m 0644 ${WORKDIR}/opensnoop.sca.description ${D}${datadir}
 }
 
-FILES_${PN} += "${datadir}"
+FILES:${PN} += "${datadir}"

@@ -18,18 +18,18 @@ SRC_URI = "\
 
 inherit systemd
 
-do_install_append() {
+do_install:append() {
     install -d ${D}${systemd_system_unitdir}
     install -m 0644 ${WORKDIR}/dca-opensnoop.service ${D}${systemd_system_unitdir}
     install -d ${D}${datadir}/dca/tools/
     install -m 0644 ${WORKDIR}/opensnoop-enh.bt ${D}${datadir}/dca/tools/
 }
 
-SYSTEMD_SERVICE_${PN} += "dca-opensnoop.service"
+SYSTEMD_SERVICE:${PN} += "dca-opensnoop.service"
 
-FILES_${PN} += "${systemd_system_unitdir} ${datadir}"
+FILES:${PN} += "${systemd_system_unitdir} ${datadir}"
 
-RDEPENDS_${PN} += "\
+RDEPENDS:${PN} += "\
                    bpftrace \
                    dca-execsnoop \
                    "

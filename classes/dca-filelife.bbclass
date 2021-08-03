@@ -22,8 +22,8 @@ DCA_FILELIFE_ACCEPTABLE_FSTYPE ?= "bpf cgroup debugfs dev devpts devtmpfs mqueue
 
 DCA_SUPPRESSION_INTERNAL += "dca-filelife.service"
 
-TEST_SUITES_append = " zzz_dca_filelife"
-IMAGE_INSTALL_append = " \
+TEST_SUITES:append = " zzz_dca_filelife"
+IMAGE_INSTALL:append = " \
                         dca-filelife \
                         kernel-dev \
                         kernel-module-kheaders \

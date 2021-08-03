@@ -17,8 +17,8 @@ SCA_RAW_RESULT_FILE[filemiss] = "json"
 
 DCA_SUPPRESSION_INTERNAL += "dca-opensnoop.service"
 
-TEST_SUITES_append = " zzz_dca_opensnoop"
-IMAGE_INSTALL_append = " \
+TEST_SUITES:append = " zzz_dca_opensnoop"
+IMAGE_INSTALL:append = " \
                         dca-opensnoop \
                        "
 

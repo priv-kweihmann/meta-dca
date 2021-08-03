@@ -20,5 +20,5 @@ python dca_check_sanity_eventhandler() {
     if "dca-recipe-backtrack" not in inherits:
         bb.warn("Usage of 'dca-recipe-backtrack' is essential for filtering out unwanted services.\n" +
                 "Without it you'll get a lot of false or unrelated findings.\n" + 
-                "Please reenable it by removing the 'INHERIT_remove = \"dca-recipe-backtrack\"'")
+                "Please reenable it by removing the 'INHERIT:remove = \"dca-recipe-backtrack\"'")
 }

@@ -14,16 +14,16 @@ SRC_URI = "\
 
 inherit systemd
 
-do_install_append() {
+do_install:append() {
     install -d ${D}${systemd_system_unitdir}
     install -m 0644 ${WORKDIR}/dca-caplint-capable.service ${D}${systemd_system_unitdir}
 }
 
-SYSTEMD_SERVICE_${PN} += "dca-caplint-capable.service"
+SYSTEMD_SERVICE:${PN} += "dca-caplint-capable.service"
 
-FILES_${PN} += "${systemd_system_unitdir}"
+FILES:${PN} += "${systemd_system_unitdir}"
 
-RDEPENDS_${PN} += "\
+RDEPENDS:${PN} += "\
                    bcc \
                    dca-execsnoop \
                    "

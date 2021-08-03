@@ -3,7 +3,7 @@
 
 DCA_SUPPRESSION_INTERNAL += "dca-execsnoop.service"
 
-TEST_SUITES_append = " zzz_dca_execsnoop"
+TEST_SUITES:append = " zzz_dca_execsnoop"
 
 def dca_module_execsnoop_init(d):
     import re

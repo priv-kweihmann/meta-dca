@@ -1,7 +1,7 @@
 ## SPDX-License-Identifier: BSD-2-Clause
 ## Copyright (c) 2021, Konrad Weihmann
 
-TEST_SUITES_append = " zzz_dca_mountdump"
+TEST_SUITES:append = " zzz_dca_mountdump"
 
 def dca_module_mountdump_init(d):
     import json
